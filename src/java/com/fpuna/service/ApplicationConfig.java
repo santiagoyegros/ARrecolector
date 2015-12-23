@@ -29,7 +29,10 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(com.fpuna.service.CollaborativefeatureFacadeREST.class);
+        resources.add(com.fpuna.service.CollaborativesessionFacadeREST.class);
         resources.add(com.fpuna.service.TrainingSetBaseFacadeREST.class);
+        resources.add(com.fpuna.service.TrainingSetFeatureFacadeREST.class);
         resources.add(com.fpuna.service.TrainingSetSessionFacadeREST.class);
     }
     

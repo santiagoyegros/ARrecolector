@@ -5,8 +5,8 @@
  */
 package com.fpuna.service;
 
-import com.fpuna.entities.TrainingSetBase;
-import com.fpuna.entities.TrainingSetSession;
+import com.fpuna.entities.Collaborativefeature;
+import com.fpuna.entities.Collaborativesession;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,21 +25,22 @@ import javax.ws.rs.Produces;
  * @author Santirrium
  */
 @Stateless
-@Path("com.fpuna.entities.TrainingSetSession")
-public class TrainingSetSessionFacadeREST extends AbstractFacade<TrainingSetSession> {
+@Path("com.fpuna.entities.collaborativesession")
+public class CollaborativesessionFacadeREST extends AbstractFacade<Collaborativesession> {
+
     @PersistenceContext(unitName = "ARrecolectorPU")
     private EntityManager em;
 
-    public TrainingSetSessionFacadeREST() {
-        super(TrainingSetSession.class);
+    public CollaborativesessionFacadeREST() {
+        super(Collaborativesession.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(TrainingSetSession entity) {
-        for (TrainingSetBase elem: entity.getTrainingSetBaseList()){
-            elem.setIDsession(entity);
+    public void create(Collaborativesession entity) {
+        for (Collaborativefeature elem : entity.getCollaborativefeatureList()) {
+            elem.setImei(entity);
         }
         super.create(entity);
     }
@@ -47,34 +48,37 @@ public class TrainingSetSessionFacadeREST extends AbstractFacade<TrainingSetSess
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Integer id, TrainingSetSession entity) {
+    public void edit(@PathParam("id") String id, Collaborativesession entity) {
+        for (Collaborativefeature elem : entity.getCollaborativefeatureList()) {
+            elem.setImei(entity);
+        }
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public TrainingSetSession find(@PathParam("id") Integer id) {
+    public Collaborativesession find(@PathParam("id") String id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<TrainingSetSession> findAll() {
+    public List<Collaborativesession> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<TrainingSetSession> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Collaborativesession> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
@@ -89,5 +93,5 @@ public class TrainingSetSessionFacadeREST extends AbstractFacade<TrainingSetSess
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

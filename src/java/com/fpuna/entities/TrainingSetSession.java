@@ -6,8 +6,8 @@
 package com.fpuna.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,10 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TrainingSetSession.findByIDsession", query = "SELECT t FROM TrainingSetSession t WHERE t.iDsession = :iDsession"),
     @NamedQuery(name = "TrainingSetSession.findByMail", query = "SELECT t FROM TrainingSetSession t WHERE t.mail = :mail"),
     @NamedQuery(name = "TrainingSetSession.findByFechaHora", query = "SELECT t FROM TrainingSetSession t WHERE t.fechaHora = :fechaHora"),
-    @NamedQuery(name = "TrainingSetSession.findByEtiqueta", query = "SELECT t FROM TrainingSetSession t WHERE t.etiqueta = :etiqueta"),
-    @NamedQuery(name = "TrainingSetSession.findByTelefono", query = "SELECT t FROM TrainingSetSession t WHERE t.telefono = :telefono"),
-    @NamedQuery(name = "TrainingSetSession.findByImei", query = "SELECT t FROM TrainingSetSession t WHERE t.imei = :imei"),
-    @NamedQuery(name = "TrainingSetSession.findByModelo", query = "SELECT t FROM TrainingSetSession t WHERE t.modelo = :modelo")})
+    @NamedQuery(name = "TrainingSetSession.findByEtiqueta", query = "SELECT t FROM TrainingSetSession t WHERE t.etiqueta = :etiqueta")})
 public class TrainingSetSession implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,17 +58,8 @@ public class TrainingSetSession implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "etiqueta")
     private String etiqueta;
-    @Size(max = 20)
-    @Column(name = "telefono")
-    private String telefono;
-    @Size(max = 20)
-    @Column(name = "imei")
-    private String imei;
-    @Size(max = 100)
-    @Column(name = "modelo")
-    private String modelo;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "iDsession")
-    private Collection<TrainingSetBase> trainingSetBaseCollection;
+    private List<TrainingSetBase> trainingSetBaseList;
 
     public TrainingSetSession() {
     }
@@ -118,36 +106,12 @@ public class TrainingSetSession implements Serializable {
         this.etiqueta = etiqueta;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public List<TrainingSetBase> getTrainingSetBaseList() {
+        return trainingSetBaseList;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getImei() {
-        return imei;
-    }
-
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public Collection<TrainingSetBase> getTrainingSetBaseCollection() {
-        return trainingSetBaseCollection;
-    }
-
-    public void setTrainingSetBaseCollection(Collection<TrainingSetBase> trainingSetBaseCollection) {
-        this.trainingSetBaseCollection = trainingSetBaseCollection;
+    public void setTrainingSetBaseList(List<TrainingSetBase> trainingSetBaseList) {
+        this.trainingSetBaseList = trainingSetBaseList;
     }
 
     @Override

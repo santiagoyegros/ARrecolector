@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TrainingSetBase.findByValX", query = "SELECT t FROM TrainingSetBase t WHERE t.valX = :valX"),
     @NamedQuery(name = "TrainingSetBase.findByValY", query = "SELECT t FROM TrainingSetBase t WHERE t.valY = :valY"),
     @NamedQuery(name = "TrainingSetBase.findByValZ", query = "SELECT t FROM TrainingSetBase t WHERE t.valZ = :valZ"),
-    @NamedQuery(name = "TrainingSetBase.findByTiempo", query = "SELECT t FROM TrainingSetBase t WHERE t.tiempo = :tiempo")})
+    @NamedQuery(name = "TrainingSetBase.findByIDsensor", query = "SELECT t FROM TrainingSetBase t WHERE t.iDsensor = :iDsensor"),
+    @NamedQuery(name = "TrainingSetBase.findByDelta", query = "SELECT t FROM TrainingSetBase t WHERE t.delta = :delta"),
+    @NamedQuery(name = "TrainingSetBase.findByM", query = "SELECT t FROM TrainingSetBase t WHERE t.m = :m")})
 public class TrainingSetBase implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,11 +55,18 @@ public class TrainingSetBase implements Serializable {
     @Column(name = "val_z")
     private float valZ;
     @Basic(optional = false)
+    @Column(name = "m", nullable = true)
+    private Float m;
+    @Basic(optional = false)
     @NotNull
-    @Column(name = "tiempo")
-    private long tiempo;
+    @Column(name = "\"ID_sensor\"")
+    private long iDsensor;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "delta")
+    private long delta;
     @JoinColumn(name = "`ID_session`", referencedColumnName = "`ID_session`")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private TrainingSetSession iDsession;
 
     public TrainingSetBase() {
@@ -68,12 +76,13 @@ public class TrainingSetBase implements Serializable {
         this.iDbase = iDbase;
     }
 
-    public TrainingSetBase(Integer iDbase, float valX, float valY, float valZ, long tiempo) {
+    public TrainingSetBase(Integer iDbase, float valX, float valY, float valZ,long iDsensor, long delta) {
         this.iDbase = iDbase;
         this.valX = valX;
         this.valY = valY;
         this.valZ = valZ;
-        this.tiempo = tiempo;
+        this.iDsensor = iDsensor;
+        this.delta = delta;
     }
 
     public Integer getIDbase() {
@@ -108,12 +117,28 @@ public class TrainingSetBase implements Serializable {
         this.valZ = valZ;
     }
 
-    public long getTiempo() {
-        return tiempo;
+    public Float getM() {
+        return m;
     }
 
-    public void setTiempo(long tiempo) {
-        this.tiempo = tiempo;
+    public void setM(Float m) {
+        this.m = m;
+    }
+    
+    public long getIDsensor() {
+        return iDsensor;
+    }
+
+    public void setIDsensor(long iDsensor) {
+        this.iDsensor = iDsensor;
+    }
+
+    public long getDelta() {
+        return delta;
+    }
+
+    public void setDelta(long delta) {
+        this.delta = delta;
     }
 
     @XmlTransient

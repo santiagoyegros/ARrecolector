@@ -5,8 +5,7 @@
  */
 package com.fpuna.service;
 
-import com.fpuna.entities.TrainingSetBase;
-import com.fpuna.entities.TrainingSetSession;
+import com.fpuna.entities.TrainingSetFeature;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,56 +24,62 @@ import javax.ws.rs.Produces;
  * @author Santirrium
  */
 @Stateless
-@Path("com.fpuna.entities.TrainingSetSession")
-public class TrainingSetSessionFacadeREST extends AbstractFacade<TrainingSetSession> {
+@Path("com.fpuna.entities.TrainingSetFeature")
+public class TrainingSetFeatureFacadeREST extends AbstractFacade<TrainingSetFeature> {
     @PersistenceContext(unitName = "ARrecolectorPU")
     private EntityManager em;
 
-    public TrainingSetSessionFacadeREST() {
-        super(TrainingSetSession.class);
+    public TrainingSetFeatureFacadeREST() {
+        super(TrainingSetFeature.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(TrainingSetSession entity) {
-        for (TrainingSetBase elem: entity.getTrainingSetBaseList()){
-            elem.setIDsession(entity);
-        }
+    public void create(TrainingSetFeature entity) {
         super.create(entity);
     }
-
+    
+//    @POST
+//    @Path("lista")
+//    @Consumes({"application/xml", "application/json"})
+//    public void create(List<TrainingSetFeature> entities) {
+//        for (TrainingSetFeature entity : entities) {
+//            getEntityManager().persist(entity);
+//        }
+//    }
+    
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Integer id, TrainingSetSession entity) {
+    public void edit(@PathParam("id") Long id, TrainingSetFeature entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public void remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public TrainingSetSession find(@PathParam("id") Integer id) {
+    public TrainingSetFeature find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<TrainingSetSession> findAll() {
+    public List<TrainingSetFeature> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<TrainingSetSession> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<TrainingSetFeature> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
