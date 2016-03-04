@@ -36,6 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collaborativesession.findBySensorName", query = "SELECT c FROM Collaborativesession c WHERE c.sensorName = :sensorName"),
     @NamedQuery(name = "Collaborativesession.findByPhoneName", query = "SELECT c FROM Collaborativesession c WHERE c.phoneName = :phoneName")})
 public class Collaborativesession implements Serializable {
+    @Size(max = 100)
+    @Column(name = "mail")
+    private String mail;
+    @Size(max = 1)
+    @Column(name = "sexo")
+    private String sexo;
+    @Column(name = "edad")
+    private Integer edad;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -135,6 +143,30 @@ public class Collaborativesession implements Serializable {
     @Override
     public String toString() {
         return "com.fpuna.entities.Collaborativesession[ imei=" + imei + " ]";
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
     
 }
