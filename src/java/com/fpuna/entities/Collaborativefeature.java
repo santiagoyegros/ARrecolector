@@ -52,6 +52,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collaborativefeature.findByMeanfreqX", query = "SELECT c FROM Collaborativefeature c WHERE c.meanfreqX = :meanfreqX"),
     @NamedQuery(name = "Collaborativefeature.findByFecha", query = "SELECT c FROM Collaborativefeature c WHERE c.fecha = :fecha")})
 public class Collaborativefeature implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "version")
+    private String version;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "prediccion")
+    private String prediccion;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -321,5 +331,20 @@ public class Collaborativefeature implements Serializable {
     public String toString() {
         return "com.fpuna.entities.Collaborativefeature[ idCf=" + idCf + " ]";
     }
+
+    public String getPrediccion() {
+        return prediccion;
+    }
+
+    public void setPrediccion(String prediccion) {
+        this.prediccion = prediccion;
+    }
     
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 }
