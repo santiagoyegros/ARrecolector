@@ -52,6 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collaborativefeature.findByMeanfreqX", query = "SELECT c FROM Collaborativefeature c WHERE c.meanfreqX = :meanfreqX"),
     @NamedQuery(name = "Collaborativefeature.findByFecha", query = "SELECT c FROM Collaborativefeature c WHERE c.fecha = :fecha")})
 public class Collaborativefeature implements Serializable {
+    @Size(max = 100)
+    @Column(name = "etiqueta_usuario")
+    private String etiquetaUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -346,5 +349,13 @@ public class Collaborativefeature implements Serializable {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getEtiquetaUsuario() {
+        return etiquetaUsuario;
+    }
+
+    public void setEtiquetaUsuario(String etiquetaUsuario) {
+        this.etiquetaUsuario = etiquetaUsuario;
     }
 }
