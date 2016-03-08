@@ -48,11 +48,18 @@ public class CollaborativesessionFacadeREST extends AbstractFacade<Collaborative
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Collaborativesession entity) {
-        for (Collaborativefeature elem : entity.getCollaborativefeatureList()) {
+    @Produces("text/plain")
+    public String edit(@PathParam("id") String id, Collaborativesession entity) {
+        
+        try {
+            for (Collaborativefeature elem : entity.getCollaborativefeatureList()) {
             elem.setImei(entity);
+            }
+            super.edit(entity);
+        } catch (Exception e) {
+            return "ERROR:" + e.getMessage();
         }
-        super.edit(entity);
+        return "OK";
     }
 
     @DELETE
