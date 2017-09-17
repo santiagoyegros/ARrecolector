@@ -48,7 +48,7 @@ public class Collaborativesession implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 256)
     @Column(name = "imei")
     private String imei;
     @Size(max = 100)
